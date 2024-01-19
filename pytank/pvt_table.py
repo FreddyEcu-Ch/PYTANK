@@ -1,5 +1,4 @@
-
-from pytank import pvt_correlations as pvt
+from pytank.utilities import pvt_correlations as pvt
 import pandas as pd
 import numpy as np
 
@@ -137,7 +136,6 @@ def pvt_table1(p_sep, t_sep, api, rsp, sg_sep, tres, den_sto, p_res, salinity, j
     # Return the result
     return pvt_dataframe
 
-#%%
 def pvt_table2(p_sep, t_sep, api, rsp, sg_sep, tres, den_sto, p_res, salinity, jump,
               units=1) -> pd.DataFrame:
 
@@ -259,9 +257,10 @@ def pvt_table2(p_sep, t_sep, api, rsp, sg_sep, tres, den_sto, p_res, salinity, j
     df_pb = pd.DataFrame(data_pb, columns=columns)
     df_above = pd.DataFrame(data_above, columns=columns)
 
+
     # Concatenation of the pvt dataframes regarding their relationship to the bubble
     # point pressure
-    pvt_dataframe = pd.concat([df_above, df_pb, df_under], ignore_index=True, axis=0)
+    pvt_dataframe = pd.concat([df_under, df_pb, df_above], ignore_index=True, axis=0)
 
     return pvt_dataframe
 
@@ -274,11 +273,10 @@ rsp = 500     # Separator producing GOR [scf/STB]
 sg_sep = 0.7  # Separator gas specific gravity
 tres = 180    # Reservoir temperature [F]
 den_sto = 55  # Density of stock-tank oil [lb/cu ft]
-p_res = 3000  # Initial reservoir pressure [psia]
+p_res = 5000  # Initial reservoir pressure [psia]
 salinity = 500  # Water Salinity [ppm]
 jump = 100    # step size of the iteration over the pressure
 
-#%%
 # Call the function with these example values
 result_df = pvt_table2(p_sep, t_sep, api, rsp, sg_sep, tres, den_sto, p_res, salinity, jump)
 print(result_df)

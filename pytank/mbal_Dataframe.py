@@ -1,9 +1,8 @@
 #%%
 import pandas as pd
-from pytank.utilities import interp_dates_row
-from pytank.pvt_interp import interp_pvt_matbal
+from pytank.utilities.utilities import interp_dates_row
+from pytank.utilities.pvt_interp import interp_pvt_matbal
 import matplotlib.pyplot as plt
-from pytank.material_balance import underground_withdrawal
 
 # Load data into dataframes
 df_pressure = pd.read_csv("../tests/data_for_tests/full_example_1/pressures.csv")

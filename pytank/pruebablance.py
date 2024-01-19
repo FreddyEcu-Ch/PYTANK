@@ -1,15 +1,10 @@
-from pytank.aquifer import aquifer_carter_tracy
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 from scipy import stats
 from scipy.optimize import fsolve
-from scipy.optimize import minimize
-from scipy.optimize import least_squares
-import cvxpy as cp
 import math
-from pytank.pvt_interp import interp_pvt_matbal
-from pytank.pvt_correlations import Bo_bw, comp_bw_nogas
+from pytank.utilities.pvt_interp import interp_pvt_matbal
+from pytank.utilities.pvt_correlations import Bo_bw, comp_bw_nogas
 
 #%%
 def odia(n):

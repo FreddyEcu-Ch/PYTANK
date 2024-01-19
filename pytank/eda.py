@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from pytank.utilities import days_in_month
-from pytank.utilities import interp_from_dates, interp_dates_row
+from pytank.utilities.utilities import days_in_month
+from pytank.utilities.utilities import interp_from_dates, interp_dates_row
 import matplotlib.ticker as ticker
 from scipy.interpolate import interp1d
 from pytank.material_balance import underground_withdrawal, pressure_vol_avg
