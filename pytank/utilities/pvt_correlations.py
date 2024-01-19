@@ -1658,3 +1658,16 @@ def comp_bw_nogas(P, T, salinity, unit=1):
         temp = 1 / 70 * (1 / (Eb_T_M * (P_array / 70) + FB_T_M))
 
     return temp
+
+API=35
+SGsep=0.75
+Den_sto=0.85
+P=3000
+Pres=2000
+Tres=80
+Psep=1500
+Tsep=70
+Rsp=100
+Units=1
+dos = Spec_grav_st_ValkoMcCain2(API, SGsep, Psep, Tsep, Rsp, Units=2)
+print("solucion:",dos)

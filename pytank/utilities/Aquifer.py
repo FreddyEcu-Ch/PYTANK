@@ -1,5 +1,5 @@
 # File to code aquifer-related functions or classes
-from pytank.utilities import variable_type
+from pytank.utilities.utilities import variable_type
 import math
 import numpy as np
 import pandas as pd
