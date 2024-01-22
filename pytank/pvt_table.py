@@ -1,4 +1,4 @@
-from pytank.utilities import pvt_correlations as pvt
+from utilities import pvt_correlations as pvt
 import pandas as pd
 import numpy as np
 

@@ -1,9 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-from pytank.utilities.utilities import days_in_month, interp_from_dates, interp_dates_row
+from utilities.utilities import days_in_month, interp_from_dates, interp_dates_row
 from scipy.interpolate import interp1d
-from pytank.material_balance import underground_withdrawal, pressure_vol_avg
+from material_balance.material_balance import underground_withdrawal, pressure_vol_avg
 
 # Constants for column names
 DATE_COL = "START_DATETIME"
@@ -29,7 +29,9 @@ class ExploreDataAnalysis:
         self.df_press = pd.read_csv(pressure_file)
         self.df_pvt = pd.read_csv(pvt_file)
 
-    def process_data(self):
+        # Process the data automatically upon object creation
+        self._process_data()
+    def _process_data(self):
         self._cast_date_column()
         self._calculate_rates()
         self._create_dataframe()
@@ -122,6 +124,9 @@ class RatePerWell(ExploreDataAnalysis):
     def __init__(self, production_file, pressure_file, pvt_file):
         super().__init__(production_file, pressure_file, pvt_file)
 
+        # Automatically plot production rate per well upon object creation
+        self.plot_production_rate_per_well()
+
     def plot_production_rate_per_well(self):
         fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 
@@ -138,6 +143,9 @@ class RatePerWell(ExploreDataAnalysis):
 class RatePerTank(ExploreDataAnalysis):
     def __init__(self, production_file, pressure_file, pvt_file):
         super().__init__(production_file, pressure_file, pvt_file)
+
+        # Automatically plot production rate per tank upon object creation
+        self.plot_production_rate_per_tank()
 
     def plot_production_rate_per_tank(self):
         fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -158,6 +166,9 @@ class RatePerTank(ExploreDataAnalysis):
 class PressureData_Vs_LiquidCum(ExploreDataAnalysis):
     def __init__(self, production_file, pressure_file, pvt_file):
         super().__init__(production_file, pressure_file, pvt_file)
+
+        # Automatically plot pressure vs. liquid cumulative upon object creation
+        self.plot_pressure_vs_liquid_cum()
 
     def plot_pressure_vs_liquid_cum(self):
         fig, (ax1, ax2) = plt.subplots(2, 1)
@@ -186,6 +197,9 @@ class LiquidCumulativesPerTank(ExploreDataAnalysis):
     def __init__(self, production_file, pressure_file, pvt_file):
         super().__init__(production_file, pressure_file, pvt_file)
 
+        # Automatically plot liquid cumulatives per tank upon object creation
+        self.plot_LiquidCumulativePerTank()
+
     def plot_LiquidCumulativePerTank(self):
         ax1 = (
             self.df_tank.pivot_table(LIQUID_CUM_COL, DATE_COL, TANK_NAME_COL)
@@ -203,6 +217,9 @@ class LiquidCumulativesPerTank(ExploreDataAnalysis):
 class PressureVsDate_PressureVsLC(ExploreDataAnalysis):
     def __init__(self, production_file, pressure_file, pvt_file):
         super().__init__(production_file, pressure_file, pvt_file)
+
+        # Automatically plot pressure vs. date and pressure vs. liquid cumulative upon object creation
+        self.plot_PVsDate_PVsLc()
 
     def plot_PVsDate_PVsLc(self):
         fig_1, (ax1, ax2) = plt.subplots(2, 1)
@@ -230,6 +247,9 @@ class PressureVsDate_PressureVsLC(ExploreDataAnalysis):
 class AVG_Data(ExploreDataAnalysis):
     def __init__(self, production_file, pressure_file, pvt_file):
         super().__init__(production_file, pressure_file, pvt_file)
+
+        # Automatically plot average data upon object creation
+        self.plot_avg_data()
 
     def plot_avg_data(self):
         df_press_avg_tank = self.df_press_avg.loc[self.df_press_avg[TANK_NAME_COL] == "tank_center",

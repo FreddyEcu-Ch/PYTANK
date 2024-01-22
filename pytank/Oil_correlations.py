@@ -22,7 +22,7 @@ class OilCorrelations:
             self.Tsep = (self.Tsep * 9 / 5) + 32
             self.Rsp = self.Rsp * (5.61458333)
 
-    def solution_GOR_Pb_ValkoMcCain(self):
+    def solution_GOR_Pb_ValkoMcCain(self,Psep, Tsep, API, Rsp, Units=1):
         self.convert_units()
 
         if all(val > 0 for val in [self.Psep, self.Tsep, self.API, self.Rsp]):
@@ -512,7 +512,7 @@ class OilCorrelations:
 
         return Bo_abovePb
 
-    def viscoity_pb(self):
+    def viscosity_pb(self):
         self.convert_units()
 
         C = (10 ** (3.0324 - 0.02023 * self.API)) * (self.Tres ** -1.163)
@@ -555,11 +555,11 @@ class OilCorrelations:
     def viscosity_abovepb(self):
         self.convert_units()
 
-        A = -1.0146 + (1.3322 * np.log10(self.viscoity_pb())) - (
-                0.4876 * (np.log10(self.viscoity_pb())) ** 2) - (
-                    1.15036 * (np.log10(self.viscoity_pb())) ** 3)
+        A = -1.0146 + (1.3322 * np.log10(self.viscosity_pb())) - (
+                0.4876 * (np.log10(self.viscosity_pb())) ** 2) - (
+                    1.15036 * (np.log10(self.viscosity_pb())) ** 3)
 
-        uoR = self.viscoity_pb() + ((1.3449 * 10 ** -3) * (
+        uoR = self.viscosity_pb() + ((1.3449 * 10 ** -3) * (
                 self.P - self.pb_velarde()) * 10 ** A)
 
         if self.Units == 1:
@@ -570,75 +570,3 @@ class OilCorrelations:
 
         return uoR
 
-
-print("prueba1")
-# Crear una instancia de la clase OilCorrelations
-oil_data = OilCorrelations(API=35, SGsep=0.75, Den_sto=0.85, P=3000, Pres=2000, Tres=80, Psep=1500, Tsep=70, Rsp=100, Units=1)
-
-# Probar la función solution_GOR_Pb_ValkoMcCain
-result1 = oil_data.solution_GOR_Pb_ValkoMcCain()
-print("Solution Gas Oil Ratio @ Pb:", result1)
-
-# Probar la función spec_grav_st_ValkoMcCain2
-result2 = oil_data.spec_grav_st_ValkoMcCain2()
-print("Specific Gravity Stock Tank:", result2)
-
-# Probar la función pb_velarde
-result3 = oil_data.pb_velarde()
-print("Bubble Point Pressure:", result3)
-
-# Probar la función solution_GOR_Velarde2
-result4 = oil_data.solution_GOR_Velarde2()
-print("Solution Gas Oil Ratio Velarde2:", result4)
-
-# Probar la función Co_above_Pb_Spivey1
-result5 = oil_data.Co_above_Pb_Spivey1()
-print("Co_above_Pb_Spivey1:", result5)
-
-# Probar la función Co_above_Pb_Spivey2
-result6 = oil_data.Co_above_Pb_Spivey2()
-print("Co_above_Pb_Spivey2:", result6)
-
-# Probar la función Co_above_Pb_Spivey3
-result7 = oil_data.Co_above_Pb_Spivey3()
-print("Co_above_Pb_Spivey2:", result7)
-
-# Probar la función den_pb
-result8 = oil_data.den_pb()
-print("den_pb:", result8)
-
-# Probar la función den_underpb
-result9 = oil_data.den_underpb()
-print("den_underpb:", result9)
-
-# Probar la función den_abovepb
-result10 = oil_data.den_abovepb()
-print("den_abovepb:", result10)
-
-# Probar la función FVF_pb
-result11 = oil_data.FVF_pb()
-print("FVF_pb:", result11)
-
-# Probar la función FVF_underpb
-result12 = oil_data.FVF_underpb()
-print("FVF_underpb:", result12)
-
-# Probar la función FVF_abovepb
-result13 = oil_data.FVF_abovepb()
-print("FVF_abovepb:", result13)
-
-# Probar la función viscosity_pb
-result14 = oil_data.viscoity_pb()
-print("v_pb:", result13)
-
-# Probar la función viscosity_underpb
-result15 = oil_data.viscosity_underpb()
-print("v_underpb:", result15)
-
-# Probar la función viscosity_abovepb
-result16 = oil_data.viscosity_abovepb()
-print("v_abovepb:", result16)
-
-# Probar la función spec_grav_ValkoMcCain2
-result17 = oil_data.spec_grav_ValkoMcCain2()
-print("v_underpb:", result17)
