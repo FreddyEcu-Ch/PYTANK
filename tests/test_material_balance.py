@@ -1,4 +1,4 @@
-from pytank.material_balance import underground_withdrawal, pressure_vol_avg
+from material_balance.material_balance import underground_withdrawal, pressure_vol_avg
 import numpy as np
 import pytest
 import pandas as pd

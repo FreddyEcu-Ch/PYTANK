@@ -1,12 +1,11 @@
 #%%
-from pytank.material_balance import campbell_function, ho_terms_equation, \
-    havlena_and_odeh
 from pytank.aquifer import aquifer_fetkovich
 import pandas as pd
 import matplotlib.pyplot as plt
 def odia(n):
     return(n*365)
-from scipy import stats
+
+
 def EBM(p,np,wp,bo,cf,cw,sw0,boi, name,date):
 
     pi = 3676

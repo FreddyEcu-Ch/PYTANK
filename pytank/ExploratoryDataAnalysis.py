@@ -1,9 +1,10 @@
 import pandas as pd
-from pytank.utilities.utilities import days_in_month
-from pytank.utilities.utilities import interp_from_dates, interp_dates_row
+from utilities.utilities import days_in_month
+from utilities.utilities import interp_from_dates, interp_dates_row
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
+formatter = ticker.EngFormatter()
 class exploratory_data_analysis:
     def __init__(self, production_file, pressure_file, pvt_file):
         self.df_prod = pd.read_csv(production_file)
@@ -12,8 +13,8 @@ class exploratory_data_analysis:
 
     def production_per_well(self):
         date_col = "START_DATETIME"
-        self.df_prod[date_col] = pd.to_datetime(self.df_prod['START_DATETIME'])
-        #  Define data frame columns
+        self.df_prod[date_col] = pd.to_datetime(self.df_prod[date_col])
+        # Define data frame columns
         # Input
         oil_cum_col = "OIL_CUM"
         water_cum_col = "WATER_CUM"
@@ -59,9 +60,9 @@ class exploratory_data_analysis:
         plt.show()
 
     def production_per_tank(self):
+        # %% Cast date column to date
         date_col = "START_DATETIME"
         self.df_prod[date_col] = pd.to_datetime(self.df_prod['START_DATETIME'])
-        #  Define data frame columns
         # Input
         oil_cum_col = "OIL_CUM"
         water_cum_col = "WATER_CUM"
@@ -75,17 +76,7 @@ class exploratory_data_analysis:
         gas_rate_col = "gas_rate"
         liquid_rate_col = "liquid_rate"
         liquid_cum_col = "liquid_cum"
-
-        # Define the input and output columns
-        cols_input = [oil_cum_col, water_cum_col, gas_cum_col]
-        cols_output = [oil_rate_col, water_rate_col, gas_rate_col]
-
-        # Calculate the rates using the differences between cumulatives
-        df_input = self.df_prod[[well_name_col, *cols_input]]
-        self.df_prod[cols_output] = (df_input.groupby(well_name_col).diff().fillna(df_input)
-                                     .div(self.df_prod[cal_day_col], axis=0))
-
-        #  Plot the Oil and Liquid Production per tank
+              #  Plot the Oil and Liquid Production per tank
         fig_2, (ax_21, ax_22) = plt.subplots(2, 1, sharex=True)
 
         df_prod_tank = (self.df_prod[[date_col, tank_name_col, *cols_output]]

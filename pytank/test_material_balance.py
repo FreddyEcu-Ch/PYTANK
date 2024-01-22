@@ -1,6 +1,5 @@
 #%%
-from pytank.material_balance import campbell_function, ho_terms_equation, \
-    havlena_and_odeh
+from material_balance.material_balance import campbell_function, ho_terms_equation
 import pandas as pd
 
 
