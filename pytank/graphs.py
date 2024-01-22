@@ -242,32 +242,3 @@ class AVG_Data(ExploreDataAnalysis):
         df_press_avg_tank.plot(x=DATE_COL, y=PRESS_COL, ax=ax1, style="bo", label="avg")
         df_press_tank.plot(x=DATE_COL, y=PRESS_COL, ax=ax1, style="ro", label="data")
         plt.show()
-
-## Uso de las clases
-production_file = "C:/Users/ksls2/PycharmProjects/PYTANk/tests/data_for_tests/full_example_1/production.csv"
-pressure_file = "C:/Users/ksls2/PycharmProjects/PYTANk/tests/data_for_tests/full_example_1/pressures.csv"
-pvt_file = "C:/Users/ksls2/PycharmProjects/PYTANk/tests/data_for_tests/full_example_1/pvt.csv"
-
-explore_data_well = RatePerWell(production_file, pressure_file, pvt_file)
-explore_data_well.process_data()
-explore_data_well.plot_production_rate_per_well()
-
-explore_data_tank = RatePerTank(production_file, pressure_file, pvt_file)
-explore_data_tank.process_data()
-explore_data_tank.plot_production_rate_per_tank()
-
-explore_data_pVsl = PressureData_Vs_LiquidCum(production_file, pressure_file, pvt_file)
-explore_data_pVsl.process_data()
-explore_data_pVsl.plot_pressure_vs_liquid_cum()
-
-explore_data_LCperTank = LiquidCumulativesPerTank(production_file, pressure_file, pvt_file)
-explore_data_LCperTank.process_data()
-explore_data_LCperTank.plot_LiquidCumulativePerTank()
-
-explore_data_PD_PLc = PressureVsDate_PressureVsLC(production_file, pressure_file, pvt_file)
-explore_data_PD_PLc.process_data()
-explore_data_PD_PLc.plot_PVsDate_PVsLc()
-
-explore_data_avgdata = AVG_Data(production_file, pressure_file, pvt_file)
-explore_data_avgdata.process_data()
-explore_data_avgdata.plot_avg_data()
