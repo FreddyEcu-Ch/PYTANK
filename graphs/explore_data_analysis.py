@@ -137,10 +137,10 @@ class RatePerWell(ExploreDataAnalysis):
         # Automatically plot production rate per well upon object creation
         self.plot()
 
-        # Automatically plot production rate per well upon object creation
+        # Automatically production oil rate per well data upon object creation for the oil data
         self.data_oil()
 
-        # Automatically plot production rate per well upon object creation
+        # Automatically production water rate per tank data upon object creation for the water data
         self.data_water()
 
 
@@ -359,9 +359,9 @@ production_file = "../tests/data_for_tests/full_example_1/production.csv"
 pressure_file = "../tests/data_for_tests/full_example_1/pressures.csv"
 pvt_file = "../tests/data_for_tests/full_example_1/pvt.csv"
 
-figura2 = PressureAvgTankCenter(production_file, pressure_file, pvt_file).plot()
+figura2 =RatePerTank(production_file, pressure_file, pvt_file)
 plt.show()
-df1 = PressureAvgTankCenter(production_file, pressure_file, pvt_file).data_real()
+df1 = RatePerWell(production_file, pressure_file, pvt_file).data_oil()
 df2 = PressureAvgTankCenter(production_file, pressure_file, pvt_file).data_avg()
 
 print(df1)
