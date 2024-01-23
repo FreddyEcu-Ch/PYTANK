@@ -362,8 +362,5 @@ pvt_file = "../tests/data_for_tests/full_example_1/pvt.csv"
 figura2 =RatePerTank(production_file, pressure_file, pvt_file)
 plt.show()
 df1 = RatePerWell(production_file, pressure_file, pvt_file).data_oil()
-df2 = PressureAvgTankCenter(production_file, pressure_file, pvt_file).data_avg()
-
 print(df1)
-print(df2)
 
