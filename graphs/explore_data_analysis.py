@@ -323,9 +323,12 @@ class PressurePerLiquidCumTank(ExploreDataAnalysis):
         df = self.df_press.pivot_table(PRESS_COL, LIQUID_VOL_COL, TANK_NAME_COL)
         return df
 
-class PressureAvgTankCenter(ExploreDataAnalysis):
-    def __init__(self, production_file, pressure_file, pvt_file):
+class PressureAvgTank(ExploreDataAnalysis):
+    def __init__(self, production_file, pressure_file, pvt_file,tank_zone = "tank_center"):
         super().__init__(production_file, pressure_file, pvt_file)
+
+        # Allows the user to choose the area they wish to view
+        self.tank_zone = tank_zone
 
         # Automatically plot average and real pressure upon object creation
         self.plot()
@@ -336,22 +339,23 @@ class PressureAvgTankCenter(ExploreDataAnalysis):
         # Automatically average pressure data upon object creation
         self.data_avg()
     def plot(self) -> Optional[plt.Figure]:
-        df_press_avg_tank = self.df_press_avg.loc[self.df_press_avg[TANK_NAME_COL] == "tank_center",
+        df_press_avg_tank = self.df_press_avg.loc[self.df_press_avg[TANK_NAME_COL] == self.tank_zone,
         [DATE_COL, PRESS_COL]]
 
-        df_press_tank = self.df_press.loc[self.df_press[TANK_NAME_COL] == "tank_center", [DATE_COL, PRESS_COL]]
+        df_press_tank = self.df_press.loc[self.df_press[TANK_NAME_COL] == self.tank_zone, [DATE_COL, PRESS_COL]]
         fig, ax1 = plt.subplots(1, 1)
 
+        ax1.set_title(self.tank_zone)
         df_press_avg_tank.plot(x=DATE_COL, y=PRESS_COL, ax=ax1, style="bo", label="avg")
         df_press_tank.plot(x=DATE_COL, y=PRESS_COL, ax=ax1, style="ro", label="data")
         return fig
 
     def data_real(self) -> pd.DataFrame:
-        df = self.df_press.loc[self.df_press[TANK_NAME_COL] == "tank_center",[DATE_COL, PRESS_COL]]
+        df = self.df_press.loc[self.df_press[TANK_NAME_COL] == self.tank_zone,[DATE_COL, PRESS_COL]]
         return df
 
     def data_avg(self) -> pd.DataFrame:
-        df = self.df_press_avg.loc[self.df_press_avg[TANK_NAME_COL] == "tank_center", [DATE_COL, PRESS_COL]]
+        df = self.df_press_avg.loc[self.df_press_avg[TANK_NAME_COL] == self.tank_zone, [DATE_COL, PRESS_COL]]
         return df
 
 # Prueba
@@ -359,8 +363,11 @@ production_file = "../tests/data_for_tests/full_example_1/production.csv"
 pressure_file = "../tests/data_for_tests/full_example_1/pressures.csv"
 pvt_file = "../tests/data_for_tests/full_example_1/pvt.csv"
 
-figura2 =RatePerTank(production_file, pressure_file, pvt_file)
+data1 =PressureAvgTank(production_file, pressure_file, pvt_file,"tank_south")
+data2 =PressureAvgTank(production_file, pressure_file, pvt_file,"tank_center")
+data1.plot()
+data2.plot()
 plt.show()
-df1 = RatePerWell(production_file, pressure_file, pvt_file).data_oil()
-print(df1)
+print(data1.data_avg())
+print(data2.data_avg())
 
