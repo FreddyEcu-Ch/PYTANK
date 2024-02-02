@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from utilities.utilities import days_in_month
-from utilities.utilities import interp_from_dates, interp_dates_row
+from utilities.Utilities import days_in_month
+from utilities.Utilities import interp_from_dates, interp_dates_row
 import matplotlib.ticker as ticker
 from scipy.interpolate import interp1d
 from material_balance.material_balance import underground_withdrawal, pressure_vol_avg

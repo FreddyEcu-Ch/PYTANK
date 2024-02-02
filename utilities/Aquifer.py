@@ -1,5 +1,5 @@
 # File to code aquifer-related functions or classes
-from utilities.utilities import variable_type
+from utilities.Utilities import variable_type
 import math
 import numpy as np
 import pandas as pd
