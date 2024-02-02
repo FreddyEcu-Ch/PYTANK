@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-from utilities.utilities import days_in_month, interp_from_dates, interp_dates_row
+from utilities.Utilities import days_in_month, interp_from_dates, interp_dates_row
 from scipy.interpolate import interp1d
 from material_balance.material_balance import underground_withdrawal, pressure_vol_avg
 from typing import Optional
@@ -363,11 +363,10 @@ production_file = "../tests/data_for_tests/full_example_1/production.csv"
 pressure_file = "../tests/data_for_tests/full_example_1/pressures.csv"
 pvt_file = "../tests/data_for_tests/full_example_1/pvt.csv"
 
-data1 =PressureAvgTank(production_file, pressure_file, pvt_file,"tank_south")
-data2 =PressureAvgTank(production_file, pressure_file, pvt_file,"tank_center")
-data1.plot()
-data2.plot()
-plt.show()
-print(data1.data_avg())
-print(data2.data_avg())
+data1 =PressureAvgTank(production_file, pressure_file, pvt_file,"tank_south").plot()
+
+
+f = PressureAvgTank(production_file, pressure_file, pvt_file,"tank_south").data_avg()
+print(f)
+print(f['START_DATETIME'].tolist())
 
